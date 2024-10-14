@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -16,7 +15,7 @@ class MainApp extends StatelessWidget {
       designSize: Size(360, 690),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: SafeArea(child: LoginPage()),
+        home: SafeArea(child: SignupPage()),
       ),
     );
   }

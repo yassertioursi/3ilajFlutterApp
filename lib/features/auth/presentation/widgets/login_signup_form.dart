@@ -31,10 +31,11 @@ class LoginSignupForm extends StatelessWidget {
         cursorColor: Colors.black,
         style: TextStyle(
           color: Colors.black,
-          fontSize: 20.sp,
+          fontSize: 16.50.sp,
         ),
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(10, 15, 10, 15),
+          errorStyle: const TextStyle(color: AppColors.errorRed),
+          contentPadding: const EdgeInsets.fromLTRB(10, 18, 10, 18),
           focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: const BorderSide(

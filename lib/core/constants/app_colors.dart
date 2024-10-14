@@ -4,4 +4,5 @@ class AppColors {
   static const Color mainBlue = Color(0xff1B9CE4);
   static const Color mainGreen = Color(0xff3DE1A1);
   static const Color subGrey = Color(0xff757575);
+  static const Color errorRed = Color(0xffed4337);
 }
