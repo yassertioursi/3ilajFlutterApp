@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/app_routes.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +19,13 @@ class LoginSignupSubTexts extends StatelessWidget {
           style: TextStyle(color: AppColors.subGrey, fontSize: 18.sp),
         ),
         InkWell(
-          onTap: () {},
+          onTap: () {
+            if (route == "Sign up") {
+              Navigator.pushReplacementNamed(context, AppRoutes.signup);
+            } else {
+              Navigator.pushNamed(context, AppRoutes.login);
+            }
+          },
           child: Text(
             route,
             style: TextStyle(

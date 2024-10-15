@@ -15,6 +15,7 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
+  String _password = '';
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -54,7 +55,7 @@ class _SignupPageState extends State<SignupPage> {
               LoginSignupButton(
                 buttonText: "Register",
                 onPressed: () {
-                  _formKey.currentState!.validate();
+                  if (_formKey.currentState!.validate()) {}
                 },
               ),
               const LoginSignupSubTexts(
@@ -112,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
                     isForPassword: false,
                     isForPhoneNumber: false,
                     maxLength: 20,
-                    validator: Validators.validateEmail,
+                    validator: Validators.validateName,
                   ),
                 ),
                 SizedBox(width: 20.w),
@@ -123,13 +124,13 @@ class _SignupPageState extends State<SignupPage> {
                     isForPassword: false,
                     isForPhoneNumber: false,
                     maxLength: 20,
-                    validator: Validators.validateEmail,
+                    validator: Validators.validateName,
                   ),
                 ),
               ],
             ),
             LoginSignupForm(
-              controller: _firstNameController,
+              controller: _emailController,
               labelText: 'Email Adress',
               isForPassword: false,
               isForPhoneNumber: false,
@@ -137,28 +138,39 @@ class _SignupPageState extends State<SignupPage> {
               validator: Validators.validateEmail,
             ),
             LoginSignupForm(
-              controller: _firstNameController,
+              controller: _phoneNumberController,
               labelText: 'Phone Number',
               isForPassword: false,
               isForPhoneNumber: true,
               maxLength: 10,
-              validator: Validators.validateEmail,
+              validator: Validators.validatePhoneNumber,
             ),
             LoginSignupForm(
-              controller: _firstNameController,
+              controller: _passwordController,
               labelText: 'Password',
               isForPassword: true,
               isForPhoneNumber: false,
               maxLength: 20,
-              validator: Validators.validateEmail,
+              validator: (value) {
+                _password = value;
+                return Validators.validatePassword(value);
+              },
             ),
             LoginSignupForm(
-              controller: _firstNameController,
+              controller: _confirmPasswordController,
               labelText: 'Confirm Password',
               isForPassword: true,
               isForPhoneNumber: false,
               maxLength: 20,
-              validator: Validators.validateEmail,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please confirm your password';
+                }
+                if (value != _password) {
+                  return 'Passwords do not match';
+                }
+                return null;
+              },
             ),
           ],
         ),

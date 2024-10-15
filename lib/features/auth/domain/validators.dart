@@ -20,7 +20,7 @@ class Validators {
   }
 
   static String? validatePassword(String? password) {
-    final String? nullCheckMessage = _isNullOrEmpty(password, "email");
+    final String? nullCheckMessage = _isNullOrEmpty(password, "password");
     if (nullCheckMessage != null) {
       return nullCheckMessage;
     }
@@ -30,17 +30,17 @@ class Validators {
     return null;
   }
 
-  static String? validateName(String? name, String fieldName) {
-    final String? nullCheckMessage = _isNullOrEmpty(name, fieldName);
+  static String? validateName(String? name) {
+    final String? nullCheckMessage = _isNullOrEmpty(name, "name");
     if (nullCheckMessage != null) {
       return nullCheckMessage;
     }
     if (!RegExp(r'^[a-zA-Z\s]+$').hasMatch(name!)) {
-      return "$fieldName can only contain letters and spaces";
+      return "Name can only contain letters and spaces";
     }
 
     if (name.length < 2 || name.length > 50) {
-      return "$fieldName must be between 2 and 50 characters";
+      return "Name must be between 2 and 50 characters";
     }
     return null;
   }
