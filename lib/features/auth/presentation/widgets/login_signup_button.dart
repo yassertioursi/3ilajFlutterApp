@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/features/auth/presentation/bloc/bloc/login_signup_bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginSignupButton extends StatelessWidget {
@@ -20,13 +22,23 @@ class LoginSignupButton extends StatelessWidget {
       child: InkWell(
         onTap: onPressed,
         child: Center(
-            child: Text(
-          buttonText,
-          style: TextStyle(
-              color: Colors.white,
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w600),
-        )),
+          child: BlocConsumer<LoginSignupBloc, LoginSignupState>(
+              builder: (context, state) {
+            return Text(
+              buttonText,
+              style: const TextStyle(color: Colors.white, fontSize: 20),
+            );
+          }, listener: (context, state) {
+            if (state is MessageLoginSignupState) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            } else if (state is ErrorSignUpLoginState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(state.message)),
+              );
+            }
+          }),
+        ),
       ),
     );
   }

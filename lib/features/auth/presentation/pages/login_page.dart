@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
+import 'package:flutter_application_1/features/auth/domain/entities/user.dart';
 import 'package:flutter_application_1/features/auth/domain/validators.dart';
+import 'package:flutter_application_1/features/auth/presentation/bloc/bloc/login_signup_bloc.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_button.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_form.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_sub_texts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginPage extends StatefulWidget {
@@ -47,6 +50,10 @@ class _LoginPageState extends State<LoginPage> {
                 buttonText: "Login",
                 onPressed: () {
                   _formKey.currentState!.validate();
+
+                  context.read<LoginSignupBloc>().add(const LoginEvent(
+                        user: UserAuth("", "", "", "", "", "", id: 1),
+                      ));
                 },
               ),
               const LoginSignupSubTexts(
