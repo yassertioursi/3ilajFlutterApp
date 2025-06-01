@@ -3,11 +3,11 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/features/auth/domain/entities/user.dart';
 import 'package:flutter_application_1/features/auth/domain/validators.dart';
 import 'package:flutter_application_1/features/auth/presentation/bloc/bloc/login_signup_bloc.dart';
+import 'package:flutter_application_1/features/auth/presentation/widgets/curved_login_signup_header.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_button.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_form.dart';
 import 'package:flutter_application_1/features/auth/presentation/widgets/login_signup_sub_texts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -40,7 +40,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.bgBlack,
       body: _buildBody(),
     );
   }
@@ -51,7 +51,11 @@ class _SignupPageState extends State<SignupPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buildSignupHeader(),
+          const CurvedHeader(
+            title: 'Create your\nAccount',
+            subtitle: 'register is fast and free !',
+            showBackButton: true,
+          ),
           _buildSignupForm(),
           Column(
             children: [
@@ -74,36 +78,36 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Widget _buildSignupHeader() => Center(
-        child: Row(
-          children: [
-            Image.asset(
-              'lib/core/images/logo.png',
-              height: 90.h,
-              width: 90.w,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Sign up",
-                      style: TextStyle(
-                          color: AppColors.mainBlue,
-                          fontSize: 24.sp,
-                          fontWeight: FontWeight.bold)),
-                  Text("Create your account",
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                          color: AppColors.subGrey,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.w400)),
-                ],
-              ),
-            ),
-          ],
-        ),
-      );
+  // Widget _buildSignupHeader() => Center(
+  //       child: Row(
+  //         children: [
+  //           Image.asset(
+  //             'lib/core/images/logo.png',
+  //             height: 90.h,
+  //             width: 90.w,
+  //           ),
+  //           Padding(
+  //             padding: const EdgeInsets.only(left: 25.0),
+  //             child: Column(
+  //               crossAxisAlignment: CrossAxisAlignment.start,
+  //               children: [
+  //                 Text("Sign up",
+  //                     style: TextStyle(
+  //                         color: AppColors.mainBlue,
+  //                         fontSize: 24.sp,
+  //                         fontWeight: FontWeight.bold)),
+  //                 Text("Create your account",
+  //                     textAlign: TextAlign.right,
+  //                     style: TextStyle(
+  //                         color: AppColors.subGrey,
+  //                         fontSize: 18.sp,
+  //                         fontWeight: FontWeight.w400)),
+  //               ],
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     );
 
   Widget _buildSignupForm() => Form(
         key: _formKey,
@@ -113,19 +117,8 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 Expanded(
                   child: LoginSignupForm(
-                    controller: _firstNameController,
-                    labelText: 'First Name',
-                    isForPassword: false,
-                    isForPhoneNumber: false,
-                    maxLength: 20,
-                    validator: Validators.validateName,
-                  ),
-                ),
-                SizedBox(width: 20.w),
-                Expanded(
-                  child: LoginSignupForm(
                     controller: _lastNameController,
-                    labelText: 'Last Name',
+                    hintText: "full name",
                     isForPassword: false,
                     isForPhoneNumber: false,
                     maxLength: 20,
@@ -136,23 +129,15 @@ class _SignupPageState extends State<SignupPage> {
             ),
             LoginSignupForm(
               controller: _emailController,
-              labelText: 'Email Adress',
+              hintText: "email",
               isForPassword: false,
               isForPhoneNumber: false,
               maxLength: 100,
               validator: Validators.validateEmail,
             ),
             LoginSignupForm(
-              controller: _phoneNumberController,
-              labelText: 'Phone Number',
-              isForPassword: false,
-              isForPhoneNumber: true,
-              maxLength: 10,
-              validator: Validators.validatePhoneNumber,
-            ),
-            LoginSignupForm(
               controller: _passwordController,
-              labelText: 'Password',
+              hintText: 'password',
               isForPassword: true,
               isForPhoneNumber: false,
               maxLength: 20,
@@ -163,7 +148,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             LoginSignupForm(
               controller: _confirmPasswordController,
-              labelText: 'Confirm Password',
+              hintText: 'confirm password',
               isForPassword: true,
               isForPhoneNumber: false,
               maxLength: 20,

@@ -29,7 +29,7 @@ class LoginSignupSubTexts extends StatelessWidget {
           child: Text(
             route,
             style: TextStyle(
-                color: AppColors.mainBlue,
+                color: AppColors.mainYellow,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600),
           ),

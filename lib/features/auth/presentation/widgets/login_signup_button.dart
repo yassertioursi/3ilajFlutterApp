@@ -17,7 +17,7 @@ class LoginSignupButton extends StatelessWidget {
       height: 50.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),
-        color: AppColors.mainGreen,
+        color: AppColors.mainYellow,
       ),
       child: InkWell(
         onTap: onPressed,

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginSignupForm extends StatelessWidget {
   final TextEditingController controller;
-  final String labelText;
+  final String hintText;
   final String? Function(String)? validator;
   final bool isForPassword;
   final bool isForPhoneNumber;
@@ -13,7 +13,7 @@ class LoginSignupForm extends StatelessWidget {
   const LoginSignupForm(
       {super.key,
       required this.controller,
-      required this.labelText,
+      required this.hintText,
       this.validator,
       required this.isForPassword,
       required this.isForPhoneNumber,
@@ -36,25 +36,25 @@ class LoginSignupForm extends StatelessWidget {
         decoration: InputDecoration(
           errorStyle: const TextStyle(color: AppColors.errorRed),
           contentPadding: const EdgeInsets.fromLTRB(10, 18, 10, 18),
-          focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
-              borderSide: const BorderSide(
-                color: AppColors.mainGreen,
-                width: 2,
-              )),
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(
                 color: AppColors.subGrey,
                 width: 3,
               )),
-          label: Text(
-            labelText,
-            style: TextStyle(
-                color: AppColors.mainBlue,
-                fontSize: 17.sp,
-                fontWeight: FontWeight.w500),
-          ),
+          focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+              borderSide: const BorderSide(
+                color: Colors.transparent, 
+                width: 0,
+              )),
+          hintText: hintText,
+          hintStyle: TextStyle(
+              color: AppColors.subGrey,
+              fontSize: 17.sp,
+              fontWeight: FontWeight.bold),
+          fillColor: AppColors.mainWhite, 
+          filled: true, 
         ),
       ),
     );
