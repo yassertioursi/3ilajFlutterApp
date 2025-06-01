@@ -46,37 +46,51 @@ class _SignupPageState extends State<SignupPage> {
   }
 
   Widget _buildBody() {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 15, 20, 40),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const CurvedHeader(
-            title: 'Create your\nAccount',
-            subtitle: 'register is fast and free !',
-            showBackButton: true,
+  return SafeArea(
+    child: Column(
+      children: [
+       
+        const CurvedHeader(
+          title: 'Create your\nAccount',
+          subtitle: 'register is fast and free !',
+          showBackButton: true,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(20, 30, 20, 20),
+            child: Column(
+              children: [
+                _buildSignupForm(),
+
+                LoginSignupButton(
+                  buttonText: "Register",
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      context.read<LoginSignupBloc>().add(SignupEvent(
+                        user: UserAuth(
+                          _lastNameController.text,
+                          _emailController.text, 
+                          _passwordController.text,
+                          "", "", "", 
+                          id: 1
+                        )
+                      ));
+                    }
+                  },
+                ),
+      
+                const LoginSignupSubTexts(
+                  question: "Already have an account? ",
+                  route: 'Sign in',
+                ),
+              ],
+            ),
           ),
-          _buildSignupForm(),
-          Column(
-            children: [
-              LoginSignupButton(
-                buttonText: "Register",
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {}
-                  context.read<LoginSignupBloc>().add(const SignupEvent(
-                      user: UserAuth("", "", "", "", "", "", id: 1)));
-                },
-              ),
-              const LoginSignupSubTexts(
-                question: "Already have an account? ",
-                route: 'Sign in',
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 
   // Widget _buildSignupHeader() => Center(
   //       child: Row(

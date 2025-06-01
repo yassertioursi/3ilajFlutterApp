@@ -13,7 +13,7 @@ class LoginSignupButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 10),
       height: 50.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40),

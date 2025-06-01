@@ -38,39 +38,41 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _buildBody() {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const CurvedHeader(
-            title: 'Welcome\nBack !',
-            subtitle: 'Please Enter Your Credentials',
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _buildLoginForm(),
-                SizedBox(height: 30.h),
-                LoginSignupButton(
-                  buttonText: "Login",
-                  onPressed: () {
-                    _formKey.currentState!.validate();
-                    context.read<LoginSignupBloc>().add(const LoginEvent(
-                          user: UserAuth("", "", "", "", "", "", id: 1),
-                        ));
-                  },
-                ),
-                const LoginSignupSubTexts(
-                  question: "Do not have an account? ",
-                  route: "Sign up",
-                ),
-              ],
+    return SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CurvedHeader(
+              title: 'Welcome\nBack !',
+              subtitle: 'Please Enter Your Credentials',
             ),
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 30.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _buildLoginForm(),
+                  SizedBox(height: 30.h),
+                  LoginSignupButton(
+                    buttonText: "Login",
+                    onPressed: () {
+                      _formKey.currentState!.validate();
+                      context.read<LoginSignupBloc>().add(const LoginEvent(
+                            user: UserAuth("", "", "", "", "", "", id: 1),
+                          ));
+                    },
+                  ),
+                  const LoginSignupSubTexts(
+                    question: "Do not have an account? ",
+                    route: "Sign up",
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

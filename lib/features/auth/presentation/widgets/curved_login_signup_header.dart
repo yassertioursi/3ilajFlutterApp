@@ -11,7 +11,7 @@ class CurvedHeader extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
-    this.showBackButton = false, 
+    this.showBackButton = false,
   });
 
   @override
@@ -23,11 +23,15 @@ class CurvedHeader extends StatelessWidget {
         width: double.infinity,
         color: AppColors.mainYellow,
         child: Padding(
-          padding: EdgeInsets.only(top: 40.h, left: 30.w),
+          padding: EdgeInsets.only(
+            top: showBackButton ? 20.h : 70.h,
+            left: 30.w,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               showBackButton ? _buildBackButton(context) : const SizedBox(),
+              SizedBox(height: showBackButton ? 20.h : 0),
               Text(
                 title,
                 style: TextStyle(
@@ -73,10 +77,22 @@ class HeaderClipper extends CustomClipper<Path> {
 }
 
 Widget _buildBackButton(BuildContext context) {
-  return IconButton(
-    icon: const Icon(Icons.arrow_back, color: Colors.white),
-    onPressed: () {
+  return InkWell(
+    onTap: () {
       Navigator.of(context).pop();
     },
+    child: Container(
+      width: 40.w,
+      height: 40.h,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+      ),
+      child: Icon(
+        Icons.arrow_back,
+        color: AppColors.mainYellow,
+        size: 20.sp,
+      ),
+    ),
   );
 }
