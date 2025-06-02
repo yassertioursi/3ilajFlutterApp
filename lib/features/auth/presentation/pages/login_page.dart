@@ -58,10 +58,15 @@ class _LoginPageState extends State<LoginPage> {
                   LoginSignupButton(
                     buttonText: "Login",
                     onPressed: () {
-                      _formKey.currentState!.validate();
-                      context.read<LoginSignupBloc>().add(const LoginEvent(
-                            user: UserAuth("", "", "", "", "", "", id: 1),
-                          ));
+                      if (_formKey.currentState!.validate()) {
+
+                        context.read<LoginSignupBloc>().add(LoginEvent(
+                              user: UserAuth.forLogin(
+                                email: _emailController.text,
+                                password: _passwordController.text,
+                              ),
+                            ));
+                      }
                     },
                   ),
                   const LoginSignupSubTexts(
@@ -76,35 +81,6 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
-  // Widget _buildLoginHeader() => Padding(
-  //       padding: const EdgeInsets.only(
-  //         top: 15.0,
-  //       ),
-  //       child: Center(
-  //         child: Column(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           crossAxisAlignment: CrossAxisAlignment.center,
-  //           children: [
-  //             Image.asset(
-  //               'lib/core/images/logo.png',
-  //               height: 130.h,
-  //               width: 130.w,
-  //             ),
-  //             Text("Welcome Back",
-  //                 style: TextStyle(
-  //                     color: AppColors.mainBlue,
-  //                     fontSize: 27.sp,
-  //                     fontWeight: FontWeight.bold)),
-  //             Text("Enter your email and password",
-  //                 style: TextStyle(
-  //                     color: AppColors.subGrey,
-  //                     fontSize: 17.sp,
-  //                     fontWeight: FontWeight.w400)),
-  //           ],
-  //         ),
-  //       ),
-  //     );
 
   Widget _buildLoginForm() => Form(
         key: _formKey,

@@ -3,6 +3,7 @@ import 'package:flutter_application_1/core/routes/app_routes.dart';
 import 'package:flutter_application_1/features/auth/presentation/bloc/bloc/login_signup_bloc.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/signup_page.dart';
+import 'package:flutter_application_1/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'injection_container.dart' as di;
@@ -27,19 +28,20 @@ class MainApp extends StatelessWidget {
                 return di.sl<LoginSignupBloc>();
               } catch (e) {
                 print('Error initializing LoginSignupBloc: $e');
-                rethrow; // Re-throw the exception after logging or handling
+                rethrow; 
               }
             },
           ),
         ],
         child: MaterialApp(
-          initialRoute: AppRoutes.login,
+          initialRoute: AppRoutes.home,
           routes: {
             AppRoutes.login: (context) => const LoginPage(),
             AppRoutes.signup: (context) => const SignupPage(),
+            AppRoutes.home: (context) => const HomePage(),
           },
           debugShowCheckedModeBanner: false,
-          home: const SafeArea(child: SignupPage()),
+          home: const SafeArea(child: HomePage()),
         ),
       ),
     );

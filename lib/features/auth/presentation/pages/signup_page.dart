@@ -19,8 +19,8 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   String _password = '';
-  final TextEditingController _firstNameController = TextEditingController();
-  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneNumberController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -28,8 +28,8 @@ class _SignupPageState extends State<SignupPage> {
       TextEditingController();
   @override
   void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
+    _nameController.dispose();
+  
     _emailController.dispose();
     _phoneNumberController.dispose();
     _passwordController.dispose();
@@ -63,21 +63,20 @@ class _SignupPageState extends State<SignupPage> {
                 _buildSignupForm(),
 
                 LoginSignupButton(
-                  buttonText: "Register",
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      context.read<LoginSignupBloc>().add(SignupEvent(
-                        user: UserAuth(
-                          _lastNameController.text,
-                          _emailController.text, 
-                          _passwordController.text,
-                          "", "", "", 
-                          id: 1
-                        )
-                      ));
-                    }
-                  },
-                ),
+  buttonText: "Register",
+  onPressed: () {
+    if (_formKey.currentState!.validate()) {
+      context.read<LoginSignupBloc>().add(SignupEvent(
+        user: UserAuth.forSignup(
+          fullName: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+          passwordconfirmation: _confirmPasswordController.text,
+        ),
+      ));
+    }
+  },
+),
       
                 const LoginSignupSubTexts(
                   question: "Already have an account? ",
@@ -92,36 +91,7 @@ class _SignupPageState extends State<SignupPage> {
   );
 }
 
-  // Widget _buildSignupHeader() => Center(
-  //       child: Row(
-  //         children: [
-  //           Image.asset(
-  //             'lib/core/images/logo.png',
-  //             height: 90.h,
-  //             width: 90.w,
-  //           ),
-  //           Padding(
-  //             padding: const EdgeInsets.only(left: 25.0),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               children: [
-  //                 Text("Sign up",
-  //                     style: TextStyle(
-  //                         color: AppColors.mainBlue,
-  //                         fontSize: 24.sp,
-  //                         fontWeight: FontWeight.bold)),
-  //                 Text("Create your account",
-  //                     textAlign: TextAlign.right,
-  //                     style: TextStyle(
-  //                         color: AppColors.subGrey,
-  //                         fontSize: 18.sp,
-  //                         fontWeight: FontWeight.w400)),
-  //               ],
-  //             ),
-  //           ),
-  //         ],
-  //       ),
-  //     );
+
 
   Widget _buildSignupForm() => Form(
         key: _formKey,
@@ -131,7 +101,7 @@ class _SignupPageState extends State<SignupPage> {
               children: [
                 Expanded(
                   child: LoginSignupForm(
-                    controller: _lastNameController,
+                    controller: _nameController,
                     hintText: "full name",
                     isForPassword: false,
                     isForPhoneNumber: false,

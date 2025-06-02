@@ -14,9 +14,21 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerLazySingleton<Dio>(() {
     Dio dio = Dio(BaseOptions(
-      baseUrl: "https://jsonplaceholder.typicode.com/",
+      baseUrl: "http://localhost:8000/api",
       connectTimeout: const Duration(seconds: 5),
       receiveTimeout: const Duration(seconds: 3),
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    ));
+
+    // Add logging interceptor for debugging
+    dio.interceptors.add(LogInterceptor(
+      requestBody: true,
+      responseBody: true,
+      requestHeader: true,
+      responseHeader: true,
     ));
 
     return dio;
