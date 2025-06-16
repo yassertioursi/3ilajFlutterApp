@@ -33,11 +33,17 @@ class CalendarPage extends StatelessWidget {
   }
 
   Widget _buildSearchWithFilters() {
-    return Row(
-      children: [
-        _buildSearchBar(),
-        _buildFilterButton(),
-      ],
+    return Padding(
+      padding: EdgeInsets.all(16.w),
+      child: Row(
+        children: [
+          Expanded(
+            child: _buildSearchBar(),
+          ),
+          SizedBox(width: 8.w),
+          _buildFilterButton(),
+        ],
+      ),
     );
   }
 
