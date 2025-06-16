@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_application_1/features/home/presentation/bloc/cubit/home_tab_cubit.dart';
 import 'package:flutter_application_1/features/home/presentation/widgets/TaskItem.dart';
+import 'package:flutter_application_1/features/home/presentation/widgets/TodayTaskItem.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,8 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.bgBlack,
         body: _buildBody(),
+        bottomNavigationBar: _buildBottomAppBar() ,
+        
       ),
     );
   }
@@ -38,26 +41,101 @@ class HomePage extends StatelessWidget {
                       _buildWelcomeText(),
                     ],
                   ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: FaIcon(
-                      FontAwesomeIcons.solidBell,
-                      color: AppColors.mainYellow,
-                      size: 28.sp,
-                    ),
-                  ),
+                  _buildNotification(),
                 ],
               ),
               SizedBox(height: 30.h),
               _buildTabButtons(),
-              SizedBox(height: 20.h),
+              SizedBox(height: 30.h),
               _buildTabContent(),
+
+              SizedBox(height: 30.h),
+              _buildTodayTasks(),
             ],
           ),
         ),
       ),
     );
   }
+
+  Widget _buildNotification() {
+    return IconButton(
+                  onPressed: () {},
+                  icon: FaIcon(
+                    FontAwesomeIcons.solidBell,
+                    color: AppColors.mainYellow,
+                    size: 28.sp,
+                  ),
+                );
+  }
+
+Widget _buildBottomAppBar() {
+  return Container(
+    height: 70.h,
+    decoration: BoxDecoration(
+      color: AppColors.mainBlack,
+    ),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        _buildBottomNavItem(
+          icon: FontAwesomeIcons.home,
+          label: 'Home',
+          isSelected: true, 
+          onTap: () {
+          
+          },
+        ),
+        _buildBottomNavItem(
+          icon: FontAwesomeIcons.plus,
+          label: 'Add Task',
+          isSelected: false,
+          onTap: () {
+            
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+
+
+Widget _buildBottomNavItem({
+  required IconData icon,
+  required String label,
+  required bool isSelected,
+  required VoidCallback onTap,
+}) {
+  return InkWell(
+    onTap: onTap,
+    borderRadius: BorderRadius.circular(12.r),
+    child: Container(
+      padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          FaIcon(
+            icon,
+            color: isSelected ? AppColors.mainYellow : AppColors.subGrey,
+            size: 24.sp,
+          ),
+          SizedBox(height: 4.h),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 12.sp,
+              color: isSelected ? AppColors.mainYellow : AppColors.subGrey,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
+
 
   Widget _buildTabButtons() {
     return BlocBuilder<HomeTabCubit, HomeTab>(
@@ -110,7 +188,7 @@ class HomePage extends StatelessWidget {
       builder: (context, selectedTab) {
         switch (selectedTab) {
           case HomeTab.myTasks:
-            return TaskItem()  ; 
+            return TaskItem(taskTitle: '', projectTitle: '', progress: 0.5, date: '',)  ; 
           case HomeTab.myProjects:
             return _buildMyProjectsContent();
         }
@@ -133,6 +211,42 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTodayTasks(){
+
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+           
+            Text("Today's Tasks" ,  
+            style:  TextStyle(      
+               color: AppColors.mainYellow , 
+                fontSize: 17.sp,
+                fontWeight: FontWeight.bold,
+            ),
+            ) ,
+             SizedBox(height: 10.h,) , 
+
+            TodayTaskItem(
+              title: "Task 1",
+              project: "Project A",
+              onTap: () {
+              
+              },
+              onOptionsTap: () {
+               
+              }, 
+            ) , 
+
+
+
+         ],
+
+
+     )
+    
+      ; 
   }
 
   Widget _buildProfilePicture() {

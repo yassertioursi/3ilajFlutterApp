@@ -26,7 +26,7 @@ class LoginSignupButton extends StatelessWidget {
               builder: (context, state) {
             return Text(
               buttonText,
-              style: const TextStyle(color: Colors.white, fontSize: 20),
+              style: const TextStyle(color: AppColors.mainWhite, fontSize: 20),
             );
           }, listener: (context, state) {
             if (state is MessageLoginSignupState) {

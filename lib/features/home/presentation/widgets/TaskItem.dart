@@ -3,7 +3,18 @@ import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TaskItem extends StatelessWidget {
-  const TaskItem({super.key});
+  final String taskTitle;
+  final String projectTitle;
+  final double progress;
+  final String date;
+
+  const TaskItem({
+    super.key,
+    required this.taskTitle,
+    required this.projectTitle,
+    required this.progress,
+    required this.date,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,59 +29,60 @@ class TaskItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "November 2020" ,
-                style: TextStyle( 
-                  color: AppColors.mainBlack,
-                  fontSize: 16.sp,  
-                  fontWeight: FontWeight.w700,
-                ), 
-              ),
-                                 ],
-             ),
+          _buildDateWidget(),
           SizedBox(height: 20.h),
-            
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "taskTitle" ,
-                style: TextStyle(
-                  color: AppColors.mainBlack,
-                  fontSize: 24.sp,
-                  fontWeight: FontWeight.bold,  
-                ),
-              ),
-              Text(
-                "projectTitle", 
-                style: TextStyle(
-                  color: AppColors.mainWhite,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w600,    
-                
-                ),
-              ),
-            ],
-          ),
-
+          _buildTaskInfoWidget(),
           SizedBox(height: 20.h),
-         _buildProgressItemWidget()  , 
-
+          _buildProgressWidget(),
         ],
       ),
-      
     );
   }
 
+  Widget _buildDateWidget() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text(
+          date,
+          style: TextStyle(
+            color: AppColors.mainBlack,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ],
+    );
+  }
 
-  Widget _buildProgressItemWidget(){
-    return  Column(
-      children: 
-      [
+  Widget _buildTaskInfoWidget() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Text(
+          taskTitle,
+          style: TextStyle(
+            color: AppColors.mainBlack,
+            fontSize: 24.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        Text(
+          projectTitle,
+          style: TextStyle(
+            color: AppColors.mainWhite,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProgressWidget() {
+    return Column(
+      children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -83,7 +95,7 @@ class TaskItem extends StatelessWidget {
               ),
             ),
             Text(
-              "75%",
+              "${(progress * 100).toInt()}%",
               style: TextStyle(
                 color: AppColors.mainWhite,
                 fontSize: 16.sp,
@@ -93,21 +105,16 @@ class TaskItem extends StatelessWidget {
           ],
         ),
         SizedBox(height: 10.h),
- ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: LinearProgressIndicator(
-              value: 0.75,
-              minHeight: 6,
-              backgroundColor: AppColors.mainWhite , 
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-            ),
-         ),
-
-
+        ClipRRect(
+          borderRadius: BorderRadius.circular(4),
+          child: LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            backgroundColor: AppColors.mainWhite.withOpacity(0.3),
+            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+          ),
+        ),
       ],
-      
-      ) ; 
-
-
+    );
   }
 }
