@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/core/constants/app_colors.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class TaskItem extends StatelessWidget {
-  final String taskTitle;
+class ProjectItem extends StatelessWidget {
+  
   final String projectTitle;
   final double progress;
   final String date;
 
-  const TaskItem({
+  const ProjectItem({
     super.key,
-    required this.taskTitle,
     required this.projectTitle,
     required this.progress,
     required this.date,
@@ -60,14 +59,7 @@ class TaskItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Text(
-          taskTitle,
-          style: TextStyle(
-            color: AppColors.mainBlack,
-            fontSize: 24.sp,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        
         Text(
           projectTitle,
           style: TextStyle(

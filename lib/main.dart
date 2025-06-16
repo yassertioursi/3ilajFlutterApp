@@ -3,6 +3,7 @@ import 'package:flutter_application_1/core/routes/app_routes.dart';
 import 'package:flutter_application_1/features/auth/presentation/bloc/bloc/login_signup_bloc.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/login_page.dart';
 import 'package:flutter_application_1/features/auth/presentation/pages/signup_page.dart';
+import 'package:flutter_application_1/features/calendar/presentation/pages/calendar_page.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/home_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,14 +35,15 @@ class MainApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
-          initialRoute: AppRoutes.home,
+          initialRoute: AppRoutes.calendar,
           routes: {
             AppRoutes.login: (context) => const LoginPage(),
             AppRoutes.signup: (context) => const SignupPage(),
             AppRoutes.home: (context) => const HomePage(),
+            AppRoutes.calendar: (context) => const CalendarPage(),
           },
           debugShowCheckedModeBanner: false,
-          home: const SafeArea(child: HomePage()),
+          home: const SafeArea(child: CalendarPage()),
         ),
       ),
     );
