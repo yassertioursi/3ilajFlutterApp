@@ -5,6 +5,7 @@ import 'package:flutter_application_1/features/auth/presentation/pages/login_pag
 import 'package:flutter_application_1/features/auth/presentation/pages/signup_page.dart';
 import 'package:flutter_application_1/features/calendar/presentation/pages/calendar_page.dart';
 import 'package:flutter_application_1/features/home/presentation/pages/home_page.dart';
+import 'package:flutter_application_1/features/home/presentation/pages/main_navigation_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'injection_container.dart' as di;
@@ -29,21 +30,22 @@ class MainApp extends StatelessWidget {
                 return di.sl<LoginSignupBloc>();
               } catch (e) {
                 print('Error initializing LoginSignupBloc: $e');
-                rethrow; 
+                rethrow;
               }
             },
           ),
         ],
         child: MaterialApp(
-          initialRoute: AppRoutes.calendar,
+          initialRoute: AppRoutes.mainNavigation,
           routes: {
             AppRoutes.login: (context) => const LoginPage(),
             AppRoutes.signup: (context) => const SignupPage(),
             AppRoutes.home: (context) => const HomePage(),
             AppRoutes.calendar: (context) => const CalendarPage(),
+            AppRoutes.mainNavigation: (context) => const MainNavigationPage(),
           },
           debugShowCheckedModeBanner: false,
-          home: const SafeArea(child: CalendarPage()),
+          home: const SafeArea(child: MainNavigationPage()),
         ),
       ),
     );

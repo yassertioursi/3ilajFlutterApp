@@ -3,4 +3,5 @@ class AppRoutes {
   static const login = '/login';
   static const home = '/home';
   static const calendar = '/calendar';
+    static const String mainNavigation = '/main-navigation';
 }

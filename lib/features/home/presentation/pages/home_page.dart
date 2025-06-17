@@ -18,7 +18,6 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: AppColors.bgBlack,
         body: _buildBody(),
-        bottomNavigationBar: _buildBottomAppBar(),
       ),
     );
   }
@@ -67,65 +66,6 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBottomAppBar() {
-    return Container(
-      height: 70.h,
-      decoration: BoxDecoration(
-        color: AppColors.mainBlack,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildBottomNavItem(
-            icon: FontAwesomeIcons.home,
-            label: 'Home',
-            isSelected: true,
-            onTap: () {},
-          ),
-          _buildBottomNavItem(
-            icon: FontAwesomeIcons.plus,
-            label: 'Add Task',
-            isSelected: false,
-            onTap: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildBottomNavItem({
-    required IconData icon,
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12.r),
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 20.w),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            FaIcon(
-              icon,
-              color: isSelected ? AppColors.mainYellow : AppColors.subGrey,
-              size: 24.sp,
-            ),
-            SizedBox(height: 4.h),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 12.sp,
-                color: isSelected ? AppColors.mainYellow : AppColors.subGrey,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _buildTabButtons() {
     return BlocBuilder<HomeTabCubit, HomeTab>(

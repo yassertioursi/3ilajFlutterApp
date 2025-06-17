@@ -4,8 +4,10 @@ import 'package:flutter_application_1/core/constants/app_time.dart';
 import 'package:flutter_application_1/features/calendar/presentation/bloc/cubit/calendar_cubit.dart';
 import 'package:flutter_application_1/features/calendar/presentation/bloc/cubit/calendar_state.dart';
 import 'package:flutter_application_1/features/calendar/presentation/widgets/search_field.dart';
+import 'package:flutter_application_1/features/home/presentation/widgets/TodayTaskItem.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarPage extends StatelessWidget {
@@ -26,9 +28,79 @@ class CalendarPage extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
+        SizedBox(height: 20.h),
         _buildSearchWithFilters(),
+        _buildAddButtonRow(),
+        SizedBox(height: 12.h),
         _buildCalendar(),
+        SizedBox(
+          height: 12.h,
+        ),
+        _buildSearchableTasks(),
       ],
+    );
+  }
+
+
+
+  Widget _buildSearchableTasks() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          _buildTasksAdd() , 
+          SizedBox(height: 15.h),
+          TodayTaskItem(title: "Task a", project: "project a")
+          
+          
+          ],
+      ),
+    );
+  }
+
+  Widget _buildTasksAdd() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          "Tasks",
+          style: TextStyle(
+            color: AppColors.mainYellow,
+            fontSize: 17.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        _buildAddButton("Task"),
+      ],
+    );
+  }
+
+  Widget _buildAddButton(String title) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+      decoration: BoxDecoration(
+        color: AppColors.mainYellow,
+        borderRadius: BorderRadius.circular(15.r),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            FontAwesomeIcons.plus,
+            color: AppColors.mainWhite,
+            size: 16.sp,
+          ),
+          SizedBox(width: 6.w),
+          Text(
+            "Add $title",
+            style: TextStyle(
+              color: AppColors.mainWhite,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -47,16 +119,37 @@ class CalendarPage extends StatelessWidget {
     );
   }
 
+  Widget _buildAddButtonRow() {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16.w),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          _buildAddButton("Project"),
+        ],
+      ),
+    );
+  }
+
   Widget _buildSearchBar() {
     return SearchField(controller: TextEditingController());
   }
 
   Widget _buildFilterButton() {
-    return IconButton(
-      icon: Icon(Icons.filter_list, color: AppColors.mainWhite),
-      onPressed: () {
-        // Implement filter functionality here
-      },
+    return Container(
+      width: 36.w,
+      height: 36.h,
+      decoration: BoxDecoration(
+        color: AppColors.mainWhite,
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Center(
+        child: Icon(
+          FontAwesomeIcons.sliders,
+          color: AppColors.mainYellow,
+          size: 22.sp,
+        ),
+      ),
     );
   }
 
@@ -64,7 +157,7 @@ class CalendarPage extends StatelessWidget {
     return BlocBuilder<CalendarCubit, CalendarState>(
       builder: (context, state) {
         return Padding(
-          padding: EdgeInsets.all(16.w),
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
           child: Container(
             decoration: BoxDecoration(
               color: AppColors.mainBlack,
